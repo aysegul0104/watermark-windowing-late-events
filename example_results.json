@@ -1,0 +1,14 @@
+{
+  "n_samples": 256,
+  "metrics": {
+    "window_mae": 2.2737367544323207e-14,
+    "late_recovery_rate": 1.0,
+    "on_time_accuracy": 1.0
+  },
+  "baseline_metrics": {
+    "window_mae": 42.312426520231135,
+    "late_recovery_rate": 0.0,
+    "on_time_accuracy": 1.0
+  },
+  "explanation": "Stream of 256 events over ~4.9 tumbling windows of 10.0s. 38 late events (14.8%) have arrival_time > event_time + 2.0s. The algorithm buffers late events and applies them after the stream ends, recovering 38/38 late events. The baseline drops all late events, recovering 0/38. Window MAE measures mean absolute error of per-window sums vs ground truth. On-time events are always correctly placed by both strategies."
+}

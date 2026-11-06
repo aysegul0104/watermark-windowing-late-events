@@ -1,0 +1,21 @@
+{
+  "tests": 20,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "status": "passed",
+  "python": "3.13.16",
+  "isolation": "separate_uid_seccomp_no_network_resource_limits_not_container",
+  "source_sha256": {
+    "main.py": "f7ffffb2b4c6a24fdfb43d6965c66cf26e3bbede1411fae2174bd33c81136d44",
+    "test_contract.py": "a01b4c343204cec27ce4a9d92bf2a030be1432f03279d697b4027a945d9b6540",
+    "requirements.txt": "93f90b4e0fc7e26142a425f53807caeb9c4489a3bc984b264583aae959cc9205",
+    ".gitignore": "95e5b9881836504ef66f4e94b5cec34cb1a72758153dc28844d1bbe167b32a0f",
+    "data.py": "556aeabcca30ab3ad267a2ef4c70c2dd765d09740809df7cf47c6affa31d4f3d",
+    "app.py": "07038475a5a052360340dac4afbf91a5a917471f5b26c20dc918939376dcee70",
+    "test_project.py": "1a651aebbbd833477827a777fe645428860821d118f899540daabeb2e104af85"
+  },
+  "test_output": "....................                                                     [100%]\n-------- generated xml file: /tmp/qwen-check-mqg6abk1/output/junit.xml ---------\n20 passed in 0.16s\n",
+  "demo_output": "{\n  \"n_samples\": 256,\n  \"metrics\": {\n    \"window_mae\": 2.2737367544323207e-14,\n    \"late_recovery_rate\": 1.0,\n    \"on_time_accuracy\": 1.0\n  },\n  \"baseline_metrics\": {\n    \"window_mae\": 42.312426520231135,\n    \"late_recovery_rate\": 0.0,\n    \"on_time_accuracy\": 1.0\n  },\n  \"explanation\": \"Stream of 256 events over ~4.9 tumbling windows of 10.0s. 38 late events (14.8%) have arrival_time > event_time + 2.0s. The algorithm buffers late events and applies them after the stream ends, recovering 38/38 late events. The baseline drops all late events, recovering 0/38. Window MAE measures mean absolute error of per-window sums vs ground truth. On-time events are always correctly placed by both strategies.\"\n}\n",
+  "seed": 42
+}

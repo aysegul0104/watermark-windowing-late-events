@@ -1,0 +1,15 @@
+{
+  "slug": "watermark-windowing-late-events",
+  "title": "Watermark-Based Windowed Aggregation with Late-Event Recovery",
+  "description": "Bounded in-memory stream simulation comparing watermark-based tumbling-window aggregation with late-event correction against a naive drop-late baseline, reporting window MAE and late-recovery rate.",
+  "novelty": "Unlike the RAG retrieval project (offline TF-IDF cosine scoring) and the seasonal anomaly project (MAD thresholding on a static series), this simulates a bounded in-memory event stream where arrival order differs from event time order, requiring real-time watermark advancement and a late-event correction buffer within fixed tumbling windows.",
+  "method": "Generate n_samples events as (event_time, arrival_time, value); ~15% are late (arrival_time > event_time + allowed_lateness). Algorithm: sort by arrival_time, advance watermark = max_event_time_seen - allowed_lateness; on-time events add to their window sum; late events enter a correction buffer applied after the stream ends. Baseline: identical arrival-order processing but late events are silently dropped. Ground truth: assign every event to floor(event_time / window_size) and sum per window. Metrics (lower is better): window_mae = mean of |computed_window_sum - true_window_sum| across all windows. Metrics (higher is better, range [0,1]): late_recovery_rate = fraction of late events correctly included in their window; on_time_accuracy = fraction of non-late events correctly included. No leakage: watermark uses only previously observed arrivals.",
+  "dependencies": [
+    "numpy"
+  ],
+  "acceptance_tests": [
+    "For default seed and n_samples, algorithm late_recovery_rate is strictly greater than baseline late_recovery_rate because the correction buffer recovers late events that the baseline drops",
+    "When the synthetic stream contains zero late events (all arrival_time <= event_time + allowed_lateness), both algorithm and baseline produce window_mae of 0.0 and on_time_accuracy of 1.0",
+    "make_dataset raises ValueError for n_samples < 32, different seeds produce different X arrays, and run_experiment returns byte-identical metrics dicts for repeated calls with the same (seed, n_samples)"
+  ]
+}
